@@ -1,7 +1,7 @@
 //model lar mongoDB veritabanında sql deki tablolara denk gelmektedir, burda bir post tablosu oluşturmaktayız
 import mongoose from "mongoose";
 
-const postSchema = mongoose.Schema({
+const postSchema = mongoose.Schema({ //veri tabanındaki dökümanın ne yapıda olacağını neler içereceğini ve hangi tip de olacağını belirttğimiz kısım
     title:String,
     subtitle:String,
     content:String,
@@ -13,6 +13,6 @@ const postSchema = mongoose.Schema({
     },
 });
 
-const Post =mongoose.model("Post",postSchema);
+const Post =mongoose.model("Post",postSchema);//bir model yarattık modele Post ismini verdik ve postSchema yı buna parametre olarak gönderdik
 
 export default Post;

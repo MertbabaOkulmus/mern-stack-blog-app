@@ -3,11 +3,12 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import postRoutes from "./routes/posts.js";
 
 /*npm i -g nodemon server da yapılan her değişiklik için tekrar tekrar servır ı durdurup başlatmakap için bu paketi yüklememiz gerekli*/
 
 const app=express();//express sayesinde bir express server oluşturduk
-dotenv.config();//env dosyasının içeriğini process.env nin içine yükler ve process.env. yi kullanmamızı sağlar
+dotenv.config();//.env dosyasının içeriğini process.env nin içine yükler ve process.env. yi kullanmamızı sağlar
 
 app.use(bodyParser.json({limit:"30mb",extended:true}));//json formatında gelen veriyi kabul et , dosya boyuntuna 30mb lik limit verdik ,extended ise bazı error lar oluyor onlar consol da gözükmesin diye
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
@@ -18,10 +19,10 @@ app.get("/",(req,res)=>{//ilk / a geldiği zaman bir request ve respons alıyoru
    res.json({//res.send yerine res.json ile json formatında yaptık aynı işlemi
        author:"MERN Blok Post Server a Hoş Geldiniz",
        message:"21/03/2021",
-   })
-     
+   })   
 })
 
+app.use("/posts",postRoutes);// http://localhost:5000/posts/ adresine gelecek bütün istekler ile postRoutes ilgilenecektir
 
 // backend in çalışacağı port u oluturuyoruz
 const PORT =process.env.PORT || 5000; // port olarak ya process.env.PORT kullan eğer tanımlı değilse 500 i kullan 
