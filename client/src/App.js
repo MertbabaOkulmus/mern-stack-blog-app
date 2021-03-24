@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   CssBaseline,
@@ -18,7 +18,8 @@ import {
 } from "react-router-dom";
 import PenIcon from "@material-ui/icons/Create";
 import PostsList from "./components/PostsList";
-
+import AddPostForm from "./components/AddPostForm";
+//DAKİK 19 DA KALDIM 
 const useStyle = makeStyles(theme => ({
   root: {
     flexGrow: 1,//genişleye bildiğin kadar genişle
@@ -35,7 +36,13 @@ const useStyle = makeStyles(theme => ({
 }));
 
 const App = () => {
-
+  const [open,setOpen]=useState(false);
+  const handleOpen=()=>{//model ı açmak için
+    setOpen(true)
+  }
+  const handleClose=()=>{//model ı kapatmak için kullanırız
+    setOpen(false)
+  }
   const classes = useStyle();
 
   return (
@@ -49,7 +56,7 @@ const App = () => {
               <a href="http://localhost:3000/posts"> Blogify </a>
             </Typography>
 
-            <Button color="primary" variant="outlined" startIcon={<PenIcon />}>
+            <Button color="primary" variant="outlined" startIcon={<PenIcon />} onClick={handleOpen}>{/*onClick={handleOpen} ile open true olur ve AddPostForm görünür hale gelir */}
               Yeni Yazı
             </Button>
           </Toolbar>
@@ -65,6 +72,8 @@ const App = () => {
           </Grid>
         </Grid>
       </Container>
+
+      <AddPostForm open={open} handleClose={handleClose}/> {/*içerden kapata bilmek için  handleClose u prop olarak yolluyoruz*/}
     </>
   );
 }
