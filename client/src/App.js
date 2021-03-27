@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   CssBaseline,
@@ -19,6 +19,8 @@ import {
 import PenIcon from "@material-ui/icons/Create";
 import PostsList from "./components/PostsList";
 import AddPostForm from "./components/AddPostForm";
+import { useDispatch } from "react-redux";
+import { fetchPosts } from "./acitons/post";
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -35,7 +37,13 @@ const useStyle = makeStyles(theme => ({
   },
 }));
 
+
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
   const [open,setOpen]=useState(false);
   const handleOpen=()=>{//model ı açmak için
     setOpen(true)
@@ -44,6 +52,8 @@ const App = () => {
     setOpen(false)
   }
   const classes = useStyle();
+
+ 
 
   return (
     <>

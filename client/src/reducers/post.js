@@ -2,6 +2,7 @@ import * as types from "../acitons/types";
 
 const initialState={
     posts:[],
+    currentPost: null,
 }
 
 const postReducer = (state=initialState,action) => {
@@ -11,9 +12,17 @@ const postReducer = (state=initialState,action) => {
                 ...state,//önce bir kopyasını döndürür
                 posts:action.payload,//sonra sadece değiştirmek istediğimiz alanı döndür
             };
+
+        case types.CREATE_POST:
+            return{
+                ...state,//state i değiştirmeden bir kopyasını döndür
+                posts:[...state.posts, action.payload]//post kısmında ...state.posts u değiştirmeden kopyala ve action.payload da ki yeni postu da üzerine ekle
+            };
+
         default:// hiçbir action type ı ile uyumlu değilse default a girer 
             return{
                 ...state, //hiçir değişiklik yapmadan state i aynı şekilde gönder
             };
     }
 };
+export default postReducer;
