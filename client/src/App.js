@@ -19,7 +19,7 @@ import {
 import PenIcon from "@material-ui/icons/Create";
 import PostsList from "./components/PostsList";
 import AddPostForm from "./components/AddPostForm";
-//DAKİK 19 DA KALDIM 
+
 const useStyle = makeStyles(theme => ({
   root: {
     flexGrow: 1,//genişleye bildiğin kadar genişle

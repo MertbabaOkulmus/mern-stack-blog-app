@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from "@material-ui/core";
+import FileBase64 from "react-file-base64";
+import { useDispatch } from "react-redux";
 import {
     Button,
     TextField,
@@ -34,11 +36,24 @@ const postSchema = yup.object().shape({//atılacak postların şeması
 });
 
 const AddPostForm = ({ open, handleClose }) => {
-
+    const dispatch = useDispatch();
+    const [file, setFile] = useState(null);
     const { register, handleSubmit, control, errors, reset } = useForm({
-        //yup ile oluşturduğumuz için useForm un için resolver geçmemiz gerekiyor
-        resolver: yupResolver(postSchema)
+        resolver: yupResolver(postSchema)//yup ile oluşturduğumuz için useForm un için resolver geçmemiz gerekiyor
     });
+
+    const clearForm=()=>{
+        reset();//reset ile formu komple sıfırlıyoruz
+        setFile(null);//file ı react-hook un içerisinde değilde useState ile işlem yaptığımız için reset ile sıfırlanmıyor ayrı sıfırlamamız gerek
+        handleClose();
+    }
+
+    const onSubmitt =(data)=>{
+        //Dispatch create post action
+        dispatch(createPost());//yeni bir post eklemek için action creater oluşturacağız
+        clearForm();
+    }
+
     const classes = useStyles();
     return (
         <Dialog open={open} onClose={handleClose} >{/*Dialog u material-ui dan oluşturduk  */}
@@ -48,7 +63,7 @@ const AddPostForm = ({ open, handleClose }) => {
                     Yeni Bir Yazı Eklemek İçin Aşağıdaki Formu Doldurun.
                     </DialogContentText>
                 <div className={classes.root}>
-                    <form noValidate autoComplete="off" >
+                    <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmitt)}>
                         <TextField // title-başlık kısmı 
                             id="title"
                             label="Başlık"
@@ -107,17 +122,21 @@ const AddPostForm = ({ open, handleClose }) => {
                             className={classes.textField}
                             size="small"
                             inputRef={register}
-                            error={errors.content ? true:false}
+                            error={errors.content ? true : false}
                             fullWidth
                         />
 
+                        <FileBase64
+                            multiple={false}
+                            onDone={({ base64 }) => setFile(base64)}
+                        />
                     </form>
                 </div>
             </DialogContent>
 
             <DialogActions>
-                <Button color="inherit">Vazgeç</Button>
-                <Button type="submit" variant="outlined" color="primary">Yayınla</Button>
+                <Button color="inherit" onClick={clearForm}>Vazgeç</Button>
+                <Button type="submit" variant="outlined" color="primary" onClick={()=>handleSubmit(onSubmitt) ()}>Yayınla</Button>
             </DialogActions>
         </Dialog>
     )
