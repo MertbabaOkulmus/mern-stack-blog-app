@@ -1,26 +1,26 @@
 import * as types from "../acitons/types";
 
-const initialState={
-    posts:[],
+const initialState = {
+    posts: [],
     currentPost: null,
-}
+};
 
-const postReducer = (state=initialState,action) => {
+const postReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.FETCH_POSTS:
-            return{ // bu alan pure function olması gerekiyor yani state i doğrudan değiştiremeyiz , önce bir kopyasını döndürür sonra sadece değiştirmek istediğimiz alanı döndür
+            return { // bu alan pure function olması gerekiyor yani state i doğrudan değiştiremeyiz , önce bir kopyasını döndürür sonra sadece değiştirmek istediğimiz alanı döndür
                 ...state,//önce bir kopyasını döndürür
-                posts:action.payload,//sonra sadece değiştirmek istediğimiz alanı döndür
+                posts: action.payload,//sonra sadece değiştirmek istediğimiz alanı döndür
             };
 
         case types.CREATE_POST:
-            return{
+            return {
                 ...state,//state i değiştirmeden bir kopyasını döndür
-                posts:[...state.posts, action.payload]//post kısmında ...state.posts u değiştirmeden kopyala ve action.payload da ki yeni postu da üzerine ekle
+                posts: [...state.posts, action.payload],//post kısmında ...state.posts u değiştirmeden kopyala ve action.payload da ki yeni postu da üzerine ekle
             };
 
         default:// hiçbir action type ı ile uyumlu değilse default a girer 
-            return{
+            return {
                 ...state, //hiçir değişiklik yapmadan state i aynı şekilde gönder
             };
     }

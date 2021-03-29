@@ -13,13 +13,14 @@ export const getPosts = async (req, res) => { //getPosts bana veritabanındaki b
 };
 
 export const createPost = async (req, res) => { //req(request): talep, res(response): yanıt
-        const post=req.body;//formdan gönderilen post içieriğini req.body den aldık
-        const newPost = new Post(req.body)//gelen yeni post u models/posts da ki post a gönderdik ve yeni bir post oluşturduk
-        try {
-       await newPost.save();//newPostu veri tabanına kaydettik save fonksiyonu ile , asenkron bir işlem olduğu için await ekledik
+    const post = req.body;//formdan gönderilen post içieriğini req.body den aldık
+    const newPost = new Post(req.body)//gelen yeni post u models/posts da ki post a gönderdik ve yeni bir post oluşturduk
+    try {
+        await newPost.save();//newPostu veri tabanına kaydettik save fonksiyonu ile , asenkron bir işlem olduğu için await ekledik
+        res.status(201).json(newPost);
     } catch (error) {
         res.status(409).json({
-            message:error.message
+            message: error.message
         })
     }
 }

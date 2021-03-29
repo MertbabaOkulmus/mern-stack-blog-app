@@ -21,6 +21,7 @@ import PostsList from "./components/PostsList";
 import AddPostForm from "./components/AddPostForm";
 import { useDispatch } from "react-redux";
 import { fetchPosts } from "./acitons/post";
+import PostDetails from "./components/PostDetails";
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -59,6 +60,7 @@ const App = () => {
     <>
       <CssBaseline />
       <Container maxWidth="lg">
+
         <AppBar position="static" color="inherit" elevation={0}>
           <Toolbar>
             <IconButton edge="start" className={classes.container} color="inherit" />
@@ -71,16 +73,19 @@ const App = () => {
             </Button>
           </Toolbar>
         </AppBar>
+
         <Grid container className={classes.container}>
           <Grid item xs={12}> {/*xs={12} en küçük ekranda bile ekranı kapla*/}
             <Router>
               <Switch>
-                <Route exect path="/posts" component={PostsList} />{/* path imiz /posts PostsList component ınını döndür */}
+                <Route exact path="/posts" component={PostsList} />{/* path imiz /posts PostsList component ini döndür */}
+                <Route exact path="/posts/:id" component={PostDetails}/>
               </Switch>
             <Redirect from="/" to="/posts"/>{/*from="/" url kısmına / geldiği zaman, bunu  /posts a yönlendir to="/posts" ile */}
             </Router>
           </Grid>
         </Grid>
+
       </Container>
 
       <AddPostForm open={open} handleClose={handleClose}/> {/*içerden kapata bilmek için  handleClose u prop olarak yolluyoruz*/}

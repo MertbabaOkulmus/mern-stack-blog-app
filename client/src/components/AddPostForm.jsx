@@ -19,12 +19,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createPost } from "../acitons/post";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     paper: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
     },
     textField: {
-        marginBottom: theme.spacing(2)
+        marginBottom: theme.spacing(2),
     },
 }));
 
@@ -40,7 +40,7 @@ const AddPostForm = ({ open, handleClose }) => {
     const dispatch = useDispatch();
     const [file, setFile] = useState(null);
     const { register, handleSubmit, control, errors, reset } = useForm({
-        resolver: yupResolver(postSchema)//yup ile oluşturduğumuz için useForm un için resolver geçmemiz gerekiyor
+        resolver: yupResolver(postSchema),//yup ile oluşturduğumuz için useForm un için resolver geçmemiz gerekiyor
     });
 
     const clearForm=()=>{
@@ -51,7 +51,7 @@ const AddPostForm = ({ open, handleClose }) => {
 
     const onSubmitt =(data)=>{
         //Dispatch create post action
-        dispatch(createPost({...data,image:file}));//yeni bir post eklemek için {...data,image:file} bilgilerini action da ki createPost a gönderiyoruz bilgileri
+        dispatch(createPost({ ...data, image: file }));//yeni bir post eklemek için {...data,image:file} bilgilerini action da ki createPost a gönderiyoruz bilgileri
         //createPost içinde api.createPost(post) tetikleniyor bilgiler post parametresi ile iletiliyor
         //api de gidip http request de bulunuyor server a
         clearForm();
