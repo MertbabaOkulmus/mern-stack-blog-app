@@ -12,6 +12,18 @@ export const getPosts = async (req, res) => { //getPosts bana veritabanındaki b
     }
 };
 
+export const getSinglePost = async (req, res) => {
+    try {
+        const { id: _id } = req.params; // "/:id" dan gelene id, id:_id bu yapı id yi yeniden adlandırmaya yarıyor id yi _id diye kullanabiliriz artık
+        const post = await Post.findById(_id);//girilen id ile eşleşen veriyi döndürür
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(404).json({
+            message: error.message,
+        });
+    }
+}
+
 export const createPost = async (req, res) => { //req(request): talep, res(response): yanıt
     const post = req.body;//formdan gönderilen post içieriğini req.body den aldık
     const newPost = new Post(req.body)//gelen yeni post u models/posts da ki post a gönderdik ve yeni bir post oluşturduk
@@ -22,5 +34,17 @@ export const createPost = async (req, res) => { //req(request): talep, res(respo
         res.status(409).json({
             message: error.message
         })
+    }
+}
+
+export const deletePost = async (req, res) => {
+    try {
+        const { id: _id } = req.params;
+        const deletedPost = await Post.findByIdAndRemove(_id);
+        res.status(200).json(deletedPost);
+    } catch (error) {
+        res.status(409).json({
+            message: error.message,
+        }); 
     }
 }
