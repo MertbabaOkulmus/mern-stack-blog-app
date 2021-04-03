@@ -90,7 +90,7 @@ const PostDetails = ({ history, location, match }) => {
                     startIcon={<DeleteIcon />}
                     onClick={removePost}>
                     Sil
-            </Button>
+                  </Button>
                 </div>
               </div>
             </div>

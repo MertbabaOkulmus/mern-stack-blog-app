@@ -14,6 +14,7 @@ import {
     DialogContentText,
     DialogTitle
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         marginBottom: theme.spacing(2),
     },
+    image: {
+        width: "80%",
+        height: "auto",
+        borderRadius: 10,
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(4),
+    }
 }));
 
 const tags = ["fun", "programing", "health", "science"];
@@ -43,13 +51,13 @@ const AddPostForm = ({ open, handleClose }) => {
         resolver: yupResolver(postSchema),//yup ile oluşturduğumuz için useForm un için resolver geçmemiz gerekiyor
     });
 
-    const clearForm=()=>{
+    const clearForm = () => {
         reset();//reset ile formu komple sıfırlıyoruz
         setFile(null);//file ı react-hook un içerisinde değilde useState ile işlem yaptığımız için reset ile sıfırlanmıyor ayrı sıfırlamamız gerek
         handleClose();
     }
 
-    const onSubmitt =(data)=>{
+    const onSubmitt = (data) => {
         //Dispatch create post action
         dispatch(createPost({ ...data, image: file }));//yeni bir post eklemek için {...data,image:file} bilgilerini action da ki createPost a gönderiyoruz bilgileri
         //createPost içinde api.createPost(post) tetikleniyor bilgiler post parametresi ile iletiliyor
@@ -128,18 +136,46 @@ const AddPostForm = ({ open, handleClose }) => {
                             error={errors.content ? true : false}
                             fullWidth
                         />
+                        {
+                            file ? (<>
+                                <div className={classes.content}>
+                                    <img
+                                        src={file}
+                                        alt="Post"
+                                        className={classes.image}
+                                    />
+                                </div>
 
-                        <FileBase64
-                            multiple={false}
-                            onDone={({ base64 }) => setFile(base64)}
-                        />
+                                <FileBase64
+                                    multiple={false}
+                                    onDone={({ base64 }) => setFile(base64)}
+
+                                />
+
+                                 <Button color="secondary"
+                                    variant="outlined"
+                                    startIcon={<DeleteIcon />}
+                                    onClick={()=>{setFile(null)}}>
+                                    Sil
+                                </Button>
+                            </>
+                            ) : (<>
+                                <FileBase64
+                                    multiple={false}
+                                    onDone={({ base64 }) => setFile(base64)}
+                                />
+                            </>
+
+                            )
+                        }
+
                     </form>
                 </div>
             </DialogContent>
 
             <DialogActions>
                 <Button color="inherit" onClick={clearForm}>Vazgeç</Button>
-                <Button type="submit" variant="outlined" color="primary" onClick={()=>handleSubmit(onSubmitt) ()}>Yayınla</Button>
+                <Button type="submit" variant="outlined" color="primary" onClick={() => handleSubmit(onSubmitt)()}>Yayınla</Button>
             </DialogActions>
         </Dialog>
     )

@@ -25,7 +25,7 @@ app.get("/",(req,res)=>{//ilk / a geldiği zaman bir request ve respons alıyoru
 app.use("/posts",postRoutes);// http://localhost:5000/posts/ adresine gelecek bütün istekler ile postRoutes ilgilenecektir
 
 // backend in çalışacağı port u oluturuyoruz
-const PORT =process.env.PORT || 5000; // port olarak ya process.env.PORT kullan eğer tanımlı değilse 500 i kullan 
+//heroku dan dolayı ihtiyaç duyulmadı, heoku artık portu kendi otomatik veriyor const PORT =process.env.PORT || 5000; // port olarak ya process.env.PORT kullan eğer tanımlı değilse 500 i kullan 
 
 
 //mongoose kullanarak mongoDB ye yani ordaki Clusters a bağlanma işlemini gerçekleştireceğiz
@@ -36,8 +36,8 @@ mongoose
     useUnifiedTopology:true
 })
 .then(()=>{//başarılı bir bağlantı oldu ise then kısmı 
-    app.listen(PORT,()=>{//app.linsten ile uygulamanın hangi port da çalışacağına karar verdik, ikinci parametresinde ise bir calback funtion döner 
-            console.log(`Uygulama ${PORT} numarali port da çalışmaktadır`)
+    app.listen(process.env.PORT,()=>{//app.linsten ile uygulamanın hangi port da çalışacağına karar verdik, ikinci parametresinde ise bir calback funtion döner 
+            console.log(`Uygulama ${process.env.PORT} numarali port da çalışmaktadır`)
     });
 })
 .catch((err)=>{//başarısız bağlantı oldu ise catch kısmı döner 

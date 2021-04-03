@@ -2,7 +2,7 @@
 //amaç herşeyi aynı alanda yapmayıp karmaşıklığı önlemek 
 
 import express from "express";
-import {getPosts, createPost, getSinglePost, deletePost} from "../controllers/posts.js";
+import {getPosts, createPost, getSinglePost, deletePost, updatePost} from "../controllers/posts.js";
 
 const router=express.Router();
 
@@ -18,6 +18,8 @@ router.get("/:id",getSinglePost)
 router.post("/",createPost)//url e yeni bir post requesti geldiği zaman createPost isimli controller ne yapılması gerektiğine karar versin
 
 router.delete("/:id",deletePost)
+
+router.patch("/:id", updatePost);// bir patch requesti geldiği zaman(update ile aynı update için kullandık) 
 
 
 export default router;
