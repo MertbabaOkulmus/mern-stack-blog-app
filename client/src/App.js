@@ -65,7 +65,7 @@ const App = () => {
           <Toolbar>
             <IconButton edge="start" className={classes.container} color="inherit" />
             <Typography variant="h6" color="secondary" className={classes.title}> {/*Typography yazı tipi */}
-              <a href="http://localhost:3000/posts"> Blogify </a>
+              <a href="https://mernblog-frontend.herokuapp.com/posts/"> Blogify </a>
             </Typography>
 
             <Button color="primary" variant="outlined" startIcon={<PenIcon />} onClick={handleOpen}>{/*onClick={handleOpen} ile open true olur ve AddPostForm görünür hale gelir */}

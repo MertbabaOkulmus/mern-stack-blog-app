@@ -10,7 +10,7 @@ const router=express.Router();
 // bu url e gelen bütün istekler burda yapılıyor
 //GET POST DELETE UPDATE PATCH bu metodlar ı burada tanımlayacağım
 
-router.get("/",getPosts) //  5000/posts/  olduğunda getPosts devreye giriyor yani  /controllers/posts dosyası devreye giriyor
+router.get("/", getPosts); //  5000/posts/  olduğunda getPosts devreye giriyor yani  /controllers/posts dosyası devreye giriyor
 //yeni bir işlem oluşturulduğunda post request i gönderilir
 
 router.get("/:id",getSinglePost)

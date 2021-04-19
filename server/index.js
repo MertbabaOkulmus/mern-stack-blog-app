@@ -36,7 +36,7 @@ mongoose
     useUnifiedTopology:true
 })
 .then(()=>{//başarılı bir bağlantı oldu ise then kısmı 
-    app.listen(process.env.PORT,()=>{//app.linsten ile uygulamanın hangi port da çalışacağına karar verdik, ikinci parametresinde ise bir calback funtion döner 
+    app.listen(process.env.PORT,()=>{// app.linsten ile uygulamanın hangi port da çalışacağına karar verdik, ikinci parametresinde ise bir calback funtion döner 
             console.log(`Uygulama ${process.env.PORT} numarali port da çalışmaktadır`)
     });
 })

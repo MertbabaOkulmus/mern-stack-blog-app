@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const apiEndpoint = "http://localhost:5000/posts/"
+//const apiEndpoint = "http://localhost:5000/posts/" deploy ettikten sonra artık server localhost:5000 de çalışmaz
+const apiEndpoint ="https://mernblog-backend.herokuapp.com/posts/"
 
 // actions/post da ki fonskiyonlar için api leri oluşturalım
 export const fetchPosts = async () => await axios.get(apiEndpoint); // posts endPointi ile router/posts alanı ilgileniyordu ve get talebi gönderildiği zaman orda getPost çağrılıyor, getPost da controllers/posts da ki getPost foksiyonunu tetikler o fonksiyonda veri tabanında ne kadar posts varsa onları json formatında döndürür 
